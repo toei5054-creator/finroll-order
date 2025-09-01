@@ -28,18 +28,23 @@ h1, h2 {
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  overflow: hidden;
   text-align: center;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .menu-item img {
   width: 100%;
+  height: 180px;        /* fix ความสูง */
+  object-fit: cover;    /* crop ให้พอดี ไม่บิดเบี้ยว */
   border-radius: 8px;
 }
 
 .menu-item .info {
-  margin: 0.5rem 0;
+  margin: 10px 0;
+  flex-grow: 1;
 }
 
 button {
@@ -112,4 +117,27 @@ button:hover {
   font-weight: bold;
   background: #3498db;
   border-radius: 8px;
+}
+
+#step-summary {
+  text-align: center;
+  padding: 20px;
+}
+
+.summary-buttons button {
+  margin: 10px auto;
+  display: block;
+  width: 80%;
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+.btn-pay {
+  background: #28a745;
+  font-weight: bold;
+}
+
+.btn-pay:hover {
+  background: #218838;
 }
