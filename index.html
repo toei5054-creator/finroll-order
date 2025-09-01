@@ -1,54 +1,29 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ฟินโรล - Fin Roll</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-</head>
-<body>
-  <!-- STEP 1: เมนู + ตะกร้า -->
-  <div id="step-menu">
-    <header>
-      <h1>ฟินโรล - Fin Roll</h1>
-      <p>เลือกเมนูที่คุณต้องการ</p>
-    </header>
-    <main id="menu" class="menu-list"></main>
-    <section id="cart-section">
-      <h2>ตะกร้าสินค้า</h2>
-      <ul id="cart-list"></ul>
-      <p id="total"></p>
-      <button class="btn-confirm" onclick="goToSummary()">ยืนยันออเดอร์</button>
-    </section>
-  </div>
+<!-- STEP 1: เมนู + ตะกร้า -->
+<div id="step-menu">
+  <header>
+    <h1>ฟินโรล - Fin Roll</h1>
+    <p>เลือกเมนูที่คุณต้องการ</p>
+  </header>
+  <main id="menu" class="menu-list"></main>
 
-  <!-- STEP 2: สรุปรายการ -->
-  <div id="step-summary" style="display:none;">
-    <header>
-      <h2>สรุปรายการสั่งซื้อ</h2>
-    </header>
+  <section id="cart-section">
+    <h2>ตะกร้าสินค้า</h2>
+    <ul id="cart-list"></ul>
+    <p id="total"></p>
 
-    <ul id="summary-list"></ul>
-    <p id="summary-total"></p>
-    <div id="summary-qrcode"></div>
+    <div class="delivery">
+      <h3>เลือกสถานที่จัดส่ง</h3>
+      <select id="delivery-select" onchange="toggleOtherInput(this.value)">
+        <option value="">-- กรุณาเลือก --</option>
+        <option value="ตึก A">ตึก A</option>
+        <option value="ตึก B">ตึก B</option>
+        <option value="ตึก C">ตึก C</option>
+        <option value="ตึก D">ตึก D</option>
+        <option value="อื่นๆ">อื่นๆ</option>
+      </select>
+      <input type="text" id="delivery-other" placeholder="กรอกสถานที่จัดส่ง" style="display:none;margin-top:5px;"/>
+    </div>
 
-    <button onclick="goBack()">แก้ไขรายการ</button>
-    <button class="btn-pay" onclick="payNow()">ฉันชำระเงินแล้ว</button>
-  </div>
-
-  <script src="main.js"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      liff.init({
-        liffId: "2008027808-5xNdW2mQ"   // 👉 เปลี่ยนเป็น LIFF ID ของคุณเอง
-      }).then(() => {
-        console.log("LIFF Initialized");
-      }).catch((err) => {
-        console.error("LIFF init error", err);
-      });
-    });
-  </script>
-</body>
-</html>
+    <button class="btn-confirm" onclick="goToSummary()">ยืนยันออเดอร์</button>
+  </section>
+</div>
