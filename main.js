@@ -97,7 +97,7 @@ function goBack() {
 
 function sendOrder() {
   let total = cart.reduce((sum, item) => sum + item.price, 0);
-  let orderText = "📋 รายการสินค้า\n\n";  // ← แก้ข้อความจาก “ออเดอร์ใหม่” เป็น “รายการสินค้า”
+  let orderText = "📋 รายการสินค้า\n\n";
 
   cart.forEach(item => {
     orderText += `- ${item.name}  ${item.price} บาท\n`;
