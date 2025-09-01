@@ -56,15 +56,24 @@ function renderCart() {
   const list = document.getElementById("cart-list");
   list.innerHTML = "";
   let total = 0;
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
     total += item.price;
     const li = document.createElement("li");
-    li.textContent = `${item.name} - ${item.price} บาท`;
+    li.className = "flex justify-between items-center";
+
+    li.innerHTML = `
+      <span>${item.name} - ${item.price} บาท</span>
+      <button class="text-red-500 ml-2" onclick="removeFromCart(${index})">❌</button>
+    `;
+
     list.appendChild(li);
   });
   document.getElementById("total").textContent = `รวม: ${total} บาท`;
 }
-
+function removeFromCart(index) {
+  cart.splice(index, 1); // ลบสินค้าออกจาก array
+  renderCart(); // render ใหม่
+}
 // ================== สรุปรายการ ==================
 function goToSummary() {
   document.getElementById("step-menu").classList.add("hidden");
