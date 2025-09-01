@@ -1,109 +1,16 @@
 body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f8f8f8;
+  font-family: 'Prompt', sans-serif;
 }
-header {
-  background: #44b78b;
-  color: white;
-  padding: 1.5em;
-  text-align: center;
-}
-/* List layout (แนวตั้ง) */
-.menu-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  max-width: 360px;    /* กำหนดความกว้างสูงสุดของ list */
-  margin: auto;
-}
-/* การ์ดแต่ละเมนู ปรับให้กว้างพอดี กรอบสวย และความสูงอัตโนมัติ */
-.menu-item {
-  width: 100%;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-}
-/* รูปด้านบน เล็กลง ไม่ล้นกรอบ */
-.menu-item img {
-  width: 100%;
-  height: 100px;       /* ปรับความสูงรูปตามชอบ (เช่น 80–120px) */
-  object-fit: cover;
-}
-/* บล็อกข้อความ กำหนด min-height ช่วยให้บล็อกเท่ากัน */
-.menu-item .info {
-  padding: 0.8rem 1rem;
-  flex: 1;
-  min-height: 80px;    /* รับรองว่าข้อความไม่ถูกตัด และบล็อกมีความสูงเท่ากัน */
-}
-/* ชื่อ/รายละเอียด */
-.menu-item h3 {
-  margin: 0.5rem 0 0.3rem;
-  font-size: 1.1rem;
-}
-.menu-item p {
-  margin: 0.2rem 0;
-  color: #555;
-}
-/* ปุ่มกดอยู่กึ่งล่าง */
-.menu-item button {
-  margin: 0.8rem auto 1rem;
-  padding: 0.5rem 1.2rem;
-  background: #44b78b;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.menu-item button:hover {
-  background: #3aa674;
-}
-/* Summary Step */
-#step-summary {
-  max-width: 360px;
-  margin: 1rem auto;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-#step-summary header {
-  margin-bottom: 1rem;
-}
-#step-summary ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1rem 0;
-}
-#step-summary li {
-  margin: 0.5rem 0;
-}
-#step-summary button {
-  display: block;
-  margin: 1rem auto 0;
-  padding: 0.5rem 1.2rem;
-  background: #44b78b;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+
+/* ปุ่มยืนยัน */
 .btn-confirm {
   display: block;
   width: 100%;
-  max-width: 300px;
-  margin: 20px auto;
-  padding: 15px 20px;
-  background-color: #00c853; /* สีเขียวสุขภาพ */
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: #2563eb; /* น้ำเงิน */
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   border: none;
   border-radius: 12px;
@@ -111,27 +18,7 @@ header {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .btn-confirm:hover {
-  background-color: #00b248;
+  background-color: #1d4ed8;
   transform: translateY(-2px);
 }
-
-.btn-confirm:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-#summary-list {
-  text-align: left;
-  max-width: 400px;
-  margin: 0 auto 20px auto;
-  padding-left: 0;
-  list-style-type: none;
-}
-
-#summary-list li {
-  padding: 8px 12px;
-  border-bottom: 1px solid #ddd;
-  font-size: 1rem;
-}
-
