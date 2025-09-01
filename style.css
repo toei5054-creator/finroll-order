@@ -1,24 +1,66 @@
 body {
-  font-family: 'Prompt', sans-serif;
+  font-family: "Sarabun", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fdfdfd;
+  color: #333;
 }
 
-/* ปุ่มยืนยัน */
-.btn-confirm {
-  display: block;
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.8rem;
-  background-color: #2563eb; /* น้ำเงิน */
+header {
+  text-align: center;
+  padding: 20px;
+  background: #4CAF50;
   color: white;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
-.btn-confirm:hover {
-  background-color: #1d4ed8;
-  transform: translateY(-2px);
+
+.menu-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.menu-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.menu-item img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.info h3 {
+  margin: 10px 0 5px;
+}
+
+button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+#cart-section {
+  padding: 20px;
+  border-top: 1px solid #ddd;
+}
+
+#cart-list li {
+  margin: 5px 0;
+}
+
+#summary-qrcode {
+  text-align: center;
+  margin: 20px 0;
 }
