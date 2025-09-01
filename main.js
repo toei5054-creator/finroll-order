@@ -93,9 +93,37 @@ function goToSummary() {
 
   const qrUrl = `https://promptpay.io/0649402737/${total}`;
   document.getElementById("summary-qrcode").innerHTML = `<img src="${qrUrl}" alt="QR PromptPay" width="200" />`;
+  // ✅ เพิ่มปุ่ม "ฉันชำระเงินแล้ว"
+  const btnPaid = document.createElement("button");
+  btnPaid.textContent = "✅ ฉันชำระเงินแล้ว";
+  btnPaid.onclick = () => {
+    // ส่งข้อความออเดอร์ไป LINE
+    let orderText = "🍣 รายการสั่งซื้อ FinRoll\n\n";
+    cart.forEach(item => {
+      orderText += `- ${item.name} ${item.price} บาท\n`;
+    });
+    orderText += `\n💵 ยอดรวมทั้งหมด: ${total} บาท\n\nลูกค้าแจ้งว่าได้ชำระเงินแล้ว ✅`;
+
+    liff.sendMessages([
+      {
+        type: "text",
+        text: orderText
+      }
+    ])
+    .then(() => {
+      alert("ส่งออเดอร์ + แจ้งชำระเงินแล้วไปที่ LINE เรียบร้อย ✅");
+      // รีเซ็ตตะกร้า
+      cart = [];
+      renderCart();
+      // กลับไปหน้าเมนู
+      goBack();
+    })
+    .catch((err) => {
+      console.error("ส่งข้อความไม่สำเร็จ", err);
+    });
+  };
+
+  document.getElementById("summary-qrcode").appendChild(btnPaid);
+}
 }
 
-function goBack() {
-  document.getElementById("step-summary").style.display = "none";
-  document.getElementById("step-menu").style.display = "block";
-}
