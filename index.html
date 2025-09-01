@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ฟินโรล - Fin Roll</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- เพิ่ม LIFF SDK -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
   <!-- STEP 1: เมนู + ตะกร้า -->
@@ -23,18 +25,13 @@
   </div>
 
   <!-- STEP 2: สรุปรายการ -->
-<div id="step-summary" style="display:none;">
-  <header>
-    <h2>สรุปรายการสั่งซื้อ</h2>
-  </header>
+  <div id="step-summary" style="display:none;">
+    <header>
+      <h2>สรุปรายการสั่งซื้อ</h2>
+    </header>
 
-  <ul id="summary-list"></ul> <!-- ← รายการอาหาร -->
-  <p id="summary-total"></p> <!-- ← ยอดรวม -->
-  <div id="summary-qrcode"></div> <!-- ← QR Code -->
+    <ul id="summary-list"></ul> <!-- ← รายการอาหาร -->
+    <p id="summary-total"></p> <!-- ← ยอดรวม -->
+    <div id="summary-qrcode"></div> <!-- ← QR Code -->
 
-  <button onclick="goBack()">แก้ไขรายการ</button>
-</div>
-
-  <script src="main.js"></script>
-</body>
-</html>
+    <button onclick="goBack()">แก้ไขรายการ</button>
