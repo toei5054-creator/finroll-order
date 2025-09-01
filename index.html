@@ -34,9 +34,21 @@
     <div id="summary-qrcode"></div>
 
     <button onclick="goBack()">แก้ไขรายการ</button>
-    <button onclick="payNow()">ฉันชำระเงิน</button>
+    <button class="btn-pay" onclick="payNow()">ฉันชำระเงินแล้ว</button>
   </div>
 
   <script src="main.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      liff.init({
+        liffId: "2008027808-5xNdW2mQ"   // 👉 เปลี่ยนเป็น LIFF ID ของคุณเอง
+      }).then(() => {
+        console.log("LIFF Initialized");
+      }).catch((err) => {
+        console.error("LIFF init error", err);
+      });
+    });
+  </script>
 </body>
 </html>
