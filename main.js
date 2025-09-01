@@ -1,3 +1,31 @@
+// เริ่มต้น LIFF
+document.addEventListener("DOMContentLoaded", function () {
+  liff.init({
+    liffId: "2008027808-5xNdW2mQ" // ใส่ LIFF ID ของคุณ
+  })
+  .then(() => {
+    console.log("LIFF initialized");
+
+    // ถ้า user ยังไม่ได้ login ให้บังคับ login
+    if (!liff.isLoggedIn()) {
+      liff.login();
+    } else {
+      // ทดสอบดึงข้อมูลโปรไฟล์ LINE
+      liff.getProfile().then(profile => {
+        console.log("Hello,", profile.displayName);
+      });
+    }
+  })
+  .catch(err => {
+    console.error("LIFF init error", err);
+  });
+});
+
+
+// ===============================
+// โค้ดเดิมของคุณ (เมนู + ตะกร้า)
+// ===============================
+
 const menuItems = [
   { name: "Finroll S", price: 49, description: "6 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-s.jpg" },
   { name: "Finroll M", price: 69, description: "8 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-m.jpg" },
@@ -45,7 +73,6 @@ function renderCart() {
   document.getElementById("total").textContent = `รวม: ${total} บาท`;
 }
 
-// เรียก renderMenu เมื่อโหลดหน้า
 window.onload = renderMenu;
 
 function goToSummary() {
