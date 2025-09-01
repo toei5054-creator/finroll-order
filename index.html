@@ -4,43 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ฟินโรล - Fin Roll</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800">
-
+<body>
   <!-- STEP 1: เมนู + ตะกร้า -->
-  <div id="step-menu" class="max-w-4xl mx-auto p-4">
-    <header class="text-center mb-6">
-      <h1 class="text-3xl font-bold text-green-600">ฟินโรล - Fin Roll</h1>
-      <p class="text-gray-600">เลือกเมนูที่คุณต้องการ</p>
+  <div id="step-menu">
+    <header>
+      <h1>ฟินโรล - Fin Roll</h1>
+      <p>เลือกเมนูที่คุณต้องการ</p>
     </header>
-
-    <main id="menu" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></main>
-
-    <section id="cart-section" class="bg-white p-4 rounded-xl shadow mt-6">
-      <h2 class="text-xl font-semibold mb-2">🛒 ตะกร้าสินค้า</h2>
-      <ul id="cart-list" class="list-disc pl-5 space-y-1"></ul>
-      <p id="total" class="font-bold mt-2"></p>
+    <main id="menu" class="menu-list"></main>
+    <section id="cart-section">
+      <h2>ตะกร้าสินค้า</h2>
+      <ul id="cart-list"></ul>
+      <p id="total"></p>
       <button class="btn-confirm" onclick="goToSummary()">ยืนยันออเดอร์</button>
     </section>
   </div>
 
   <!-- STEP 2: สรุปรายการ -->
-  <div id="step-summary" class="max-w-2xl mx-auto p-4 hidden">
-    <header class="text-center mb-6">
-      <h2 class="text-2xl font-bold text-green-600">สรุปรายการสั่งซื้อ</h2>
+  <div id="step-summary" style="display:none;">
+    <header>
+      <h2>สรุปรายการสั่งซื้อ</h2>
     </header>
 
-    <ul id="summary-list" class="list-decimal pl-5 space-y-1"></ul>
-    <p id="summary-total" class="font-bold mt-4"></p>
-    <div id="summary-qrcode" class="mt-4 text-center"></div>
+    <ul id="summary-list"></ul>
+    <p id="summary-total"></p>
+    <div id="summary-qrcode"></div>
 
-    <button class="w-full bg-gray-200 py-2 rounded-lg mt-4 hover:bg-gray-300" onclick="goBack()">🔙 กลับไปแก้ไข</button>
+    <button onclick="goBack()">แก้ไขรายการ</button>
+    <button onclick="payNow()">ฉันชำระเงิน</button>
   </div>
 
   <script src="main.js"></script>
 </body>
 </html>
-
