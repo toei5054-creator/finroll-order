@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ฟินโรล - Fin Roll</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- STEP 1: เมนู + ตะกร้า -->
+  <div id="step-menu">
+    <header>
+      <h1>ฟินโรล - Fin Roll</h1>
+      <p>เลือกเมนูที่คุณต้องการ</p>
+    </header>
+    <main id="menu" class="menu-list"></main>
+    <section id="cart-section">
+      <h2>ตะกร้าสินค้า</h2>
+      <ul id="cart-list"></ul>
+      <p id="total"></p>
+      <button class="btn-confirm" onclick="goToSummary()">ยืนยันออเดอร์</button>
+    </section>
+  </div>
+
+  <!-- STEP 2: สรุปรายการ -->
+<div id="step-summary" style="display:none;">
+  <header>
+    <h2>สรุปรายการสั่งซื้อ</h2>
+  </header>
+
+  <ul id="summary-list"></ul> <!-- ← รายการอาหาร -->
+  <p id="summary-total"></p> <!-- ← ยอดรวม -->
+  <div id="summary-qrcode"></div> <!-- ← QR Code -->
+
+  <button onclick="goBack()">แก้ไขรายการ</button>
+</div>
+
+  <script src="main.js"></script>
+</body>
+</html>
