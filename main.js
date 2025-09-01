@@ -7,6 +7,7 @@ const menuItems = [
 ];
 
 let cart = [];
+let deliveryPlace = "";
 
 function renderMenu() {
   const menu = document.getElementById("menu");
@@ -51,7 +52,25 @@ function renderCart() {
   document.getElementById("total").textContent = `รวม: ${total} บาท`;
 }
 
+function toggleOtherInput(value) {
+  const otherInput = document.getElementById("delivery-other");
+  if (value === "อื่นๆ") {
+    otherInput.style.display = "block";
+  } else {
+    otherInput.style.display = "none";
+  }
+}
+
 function goToSummary() {
+  const deliverySelect = document.getElementById("delivery-select").value;
+  const deliveryOther = document.getElementById("delivery-other").value.trim();
+  deliveryPlace = deliverySelect === "อื่นๆ" ? deliveryOther : deliverySelect;
+
+  if (!deliveryPlace) {
+    alert("กรุณาเลือกสถานที่จัดส่ง");
+    return;
+  }
+
   document.getElementById("step-menu").style.display = "none";
   document.getElementById("step-summary").style.display = "block";
 
@@ -68,7 +87,7 @@ function goToSummary() {
   document.getElementById("summary-total").textContent = `ยอดรวมทั้งหมด: ${total} บาท`;
 
   const qrUrl = `https://promptpay.io/0649402737/${total}`;
-  document.getElementById("summary-qrcode").innerHTML = `<img src="${qrUrl}" alt="QR PromptPay" width="200" />`;
+  document.getElementById("summary-qrcode").innerHTML = `<img src="${qrUrl}" width="200"/>`;
 }
 
 function goBack() {
@@ -76,30 +95,27 @@ function goBack() {
   document.getElementById("step-menu").style.display = "block";
 }
 
-function payNow() {
+function sendOrder() {
   let total = cart.reduce((sum, item) => sum + item.price, 0);
-  let orderText = cart.map(item => `- ${item.name} ${item.price} บาท`).join("\n");
-
-  if (cart.length === 0) {
-    alert("ไม่มีสินค้าในตะกร้า");
-    return;
-  }
-
-  const message = `🛒 ออเดอร์ใหม่\n${orderText}\n💵 รวมทั้งหมด: ${total} บาท`;
+  let orderText = "📦 ออเดอร์ใหม่\n";
+  cart.forEach(item => {
+    orderText += `- ${item.name} ${item.price} บาท\n`;
+  });
+  orderText += `💵 รวมทั้งหมด: ${total} บาท\n🚚 สถานที่จัดส่ง: ${deliveryPlace}`;
 
   if (liff.isInClient()) {
-    liff.sendMessages([{ type: "text", text: message }])
+    liff.sendMessages([{ type: "text", text: orderText }])
       .then(() => {
-        alert("ส่งออเดอร์เรียบร้อย!");
+        alert("ส่งออเดอร์เรียบร้อย ✅");
         cart = [];
         renderCart();
         goBack();
       })
-      .catch(err => console.error("ส่งข้อความไม่สำเร็จ:", err));
+      .catch(err => console.error("ส่งไม่สำเร็จ:", err));
   } else {
-    alert("กรุณาเปิดจาก LINE App เท่านั้น");
+    alert("กรุณาเปิดจาก LINE App เพื่อส่งออเดอร์");
   }
 }
 
-// เมื่อโหลดหน้า ให้ render เมนู
+// เมื่อโหลดหน้า
 window.onload = renderMenu;
