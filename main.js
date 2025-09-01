@@ -1,55 +1,25 @@
-// เริ่มต้น LIFF
-document.addEventListener("DOMContentLoaded", function () {
-  liff.init({
-    liffId: "2008027808-5xNdW2mQ" // ใส่ LIFF ID ของคุณ
-  })
-  .then(() => {
-    console.log("LIFF initialized");
-
-    // ถ้า user ยังไม่ได้ login ให้บังคับ login
-    if (!liff.isLoggedIn()) {
-      liff.login();
-    } else {
-      // ทดสอบดึงข้อมูลโปรไฟล์ LINE
-      liff.getProfile().then(profile => {
-        console.log("Hello,", profile.displayName);
-      });
-    }
-  })
-  .catch(err => {
-    console.error("LIFF init error", err);
-  });
-});
 let cart = [];
-let customerName = ""; // จะเก็บชื่อจาก LINE Profile
+let customerName = "";
 
 // ================== LIFF Init ==================
 document.addEventListener("DOMContentLoaded", function () {
-  liff.init({
-    liffId: "2008027808-5xNdW2mQ" // LIFF ID ของคุณ
-  })
+  liff.init({ liffId: "2008027808-5xNdW2mQ" })
   .then(() => {
-    console.log("LIFF initialized");
-
     if (!liff.isLoggedIn()) {
       liff.login();
     } else {
-      // ดึงโปรไฟล์ผู้ใช้ LINE
       liff.getProfile().then(profile => {
-        customerName = profile.displayName; // เก็บชื่อไว้ใช้ตอนส่งออเดอร์
+        customerName = profile.displayName;
         console.log("Hello,", customerName);
       });
     }
   })
-  .catch(err => {
-    console.error("LIFF init error", err);
-  });
+  .catch(err => console.error("LIFF init error", err));
+
+  renderMenu();
 });
 
-// ===============================
-// โค้ดเดิมของคุณ (เมนู + ตะกร้า)
-// ===============================
-
+// ================== เมนูสินค้า ==================
 const menuItems = [
   { name: "Finroll S", price: 49, description: "6 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-s.jpg" },
   { name: "Finroll M", price: 69, description: "8 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-m.jpg" },
@@ -58,22 +28,20 @@ const menuItems = [
   { name: "น้ำจิ้มซีฟู้ด", price: 10, description: "1 ถ้วย (แยก)", img: "images/finroll-sauce.jpg" }
 ];
 
-let cart = [];
-
 function renderMenu() {
   const menu = document.getElementById("menu");
   menu.innerHTML = "";
   menuItems.forEach((item, i) => {
     const card = document.createElement("div");
-    card.className = "menu-item";
+    card.className = "bg-white rounded-xl shadow hover:shadow-lg overflow-hidden";
     card.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
-      <div class="info">
-        <h3>${item.name}</h3>
-        <p>${item.description}</p>
-        <p><strong>${item.price} บาท</strong></p>
+      <img src="${item.img}" alt="${item.name}" class="w-full h-40 object-cover">
+      <div class="p-3">
+        <h3 class="font-bold text-lg">${item.name}</h3>
+        <p class="text-sm text-gray-600">${item.description}</p>
+        <p class="font-semibold text-green-600 mt-1">${item.price} บาท</p>
+        <button class="w-full bg-green-600 text-white py-2 rounded-lg mt-2 hover:bg-green-700" onclick="addToCart(${i})">เพิ่มใส่ตะกร้า</button>
       </div>
-      <button onclick="addToCart(${i})">เพิ่มใส่ตะกร้า</button>
     `;
     menu.appendChild(card);
   });
@@ -97,11 +65,10 @@ function renderCart() {
   document.getElementById("total").textContent = `รวม: ${total} บาท`;
 }
 
-window.onload = renderMenu;
-
+// ================== สรุปรายการ ==================
 function goToSummary() {
-  document.getElementById("step-menu").style.display = "none";
-  document.getElementById("step-summary").style.display = "block";
+  document.getElementById("step-menu").classList.add("hidden");
+  document.getElementById("step-summary").classList.remove("hidden");
 
   const summaryList = document.getElementById("summary-list");
   summaryList.innerHTML = "";
@@ -116,11 +83,12 @@ function goToSummary() {
   document.getElementById("summary-total").textContent = `ยอดรวมทั้งหมด: ${total} บาท`;
 
   const qrUrl = `https://promptpay.io/0649402737/${total}`;
-  document.getElementById("summary-qrcode").innerHTML = `<img src="${qrUrl}" alt="QR PromptPay" width="200" />`;
+  document.getElementById("summary-qrcode").innerHTML = `<img src="${qrUrl}" alt="QR PromptPay" class="mx-auto rounded-lg shadow mt-2" width="200" />`;
 
-  // ✅ ปุ่ม "ฉันชำระเงินแล้ว"
+  // ปุ่ม "ฉันชำระเงินแล้ว"
   const btnPaid = document.createElement("button");
   btnPaid.textContent = "✅ ฉันชำระเงินแล้ว";
+  btnPaid.className = "w-full bg-green-600 text-white py-2 rounded-lg mt-4 hover:bg-green-700";
   btnPaid.onclick = () => {
     let orderText = `🍣 รายการสั่งซื้อ FinRoll\n👤 ลูกค้า: ${customerName}\n\n`;
     cart.forEach(item => {
@@ -128,24 +96,21 @@ function goToSummary() {
     });
     orderText += `\n💵 ยอดรวมทั้งหมด: ${total} บาท\n\nลูกค้าแจ้งว่าได้ชำระเงินแล้ว ✅`;
 
-    liff.sendMessages([
-      {
-        type: "text",
-        text: orderText
-      }
-    ])
+    liff.sendMessages([{ type: "text", text: orderText }])
     .then(() => {
       alert("ส่งออเดอร์ + แจ้งชำระเงินแล้วไปที่ LINE เรียบร้อย ✅");
-      // รีเซ็ตตะกร้า
       cart = [];
       renderCart();
-      // กลับไปหน้าเมนู
       goBack();
     })
-    .catch((err) => {
-      console.error("ส่งข้อความไม่สำเร็จ", err);
-    });
+    .catch(err => console.error("ส่งข้อความไม่สำเร็จ", err));
   };
 
   document.getElementById("summary-qrcode").appendChild(btnPaid);
 }
+
+function goBack() {
+  document.getElementById("step-summary").classList.add("hidden");
+  document.getElementById("step-menu").classList.remove("hidden");
+}
+
