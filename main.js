@@ -8,7 +8,6 @@ const menuItems = [
 
 let cart = [];
 
-// แสดงเมนู
 function renderMenu() {
   const menu = document.getElementById("menu");
   menu.innerHTML = "";
@@ -28,13 +27,16 @@ function renderMenu() {
   });
 }
 
-// เพิ่มสินค้า
 function addToCart(i) {
   cart.push(menuItems[i]);
   renderCart();
 }
 
-// แสดงตะกร้า
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  renderCart();
+}
+
 function renderCart() {
   const list = document.getElementById("cart-list");
   list.innerHTML = "";
@@ -42,19 +44,13 @@ function renderCart() {
   cart.forEach((item, index) => {
     total += item.price;
     const li = document.createElement("li");
-    li.innerHTML = `${item.name} - ${item.price} บาท <button onclick="removeFromCart(${index})">ลบ</button>`;
+    li.innerHTML = `${item.name} - ${item.price} บาท 
+      <button class="remove-btn" onclick="removeFromCart(${index})">x</button>`;
     list.appendChild(li);
   });
   document.getElementById("total").textContent = `รวม: ${total} บาท`;
 }
 
-// ลบสินค้า
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  renderCart();
-}
-
-// ไปหน้าสรุป
 function goToSummary() {
   document.getElementById("step-menu").style.display = "none";
   document.getElementById("step-summary").style.display = "block";
@@ -70,35 +66,40 @@ function goToSummary() {
   });
 
   document.getElementById("summary-total").textContent = `ยอดรวมทั้งหมด: ${total} บาท`;
+
   const qrUrl = `https://promptpay.io/0649402737/${total}`;
   document.getElementById("summary-qrcode").innerHTML = `<img src="${qrUrl}" alt="QR PromptPay" width="200" />`;
 }
 
-// กลับไปแก้ไข
 function goBack() {
   document.getElementById("step-summary").style.display = "none";
   document.getElementById("step-menu").style.display = "block";
 }
 
-// ชำระเงิน
 function payNow() {
-  const totalText = document.getElementById("summary-total").textContent;
-  if (!totalText) {
-    alert("ยังไม่มีรายการในตะกร้า");
+  let total = cart.reduce((sum, item) => sum + item.price, 0);
+  let orderText = cart.map(item => `- ${item.name} ${item.price} บาท`).join("\n");
+
+  if (cart.length === 0) {
+    alert("ไม่มีสินค้าในตะกร้า");
     return;
   }
 
-  if (liff.isLoggedIn()) {
-    liff.sendMessages([
-      {
-        type: "text",
-        text: `ออเดอร์ของคุณ: \n${cart.map(item => item.name).join(", ")}\n${totalText}`
-      },
-      {
-        type: "text",
-        text: "นี่คือ QR สำหรับชำระเงิน 👉 https://promptpay.io/0649402737"
-      }
-    ])
-    .then(() => {
-      alert("ส่งออเดอร์เรียบร้อย กรุณาชำระเงินตาม QR ที่ส่งให้");
-      cart = [];
+  const message = `🛒 ออเดอร์ใหม่\n${orderText}\n💵 รวมทั้งหมด: ${total} บาท`;
+
+  if (liff.isInClient()) {
+    liff.sendMessages([{ type: "text", text: message }])
+      .then(() => {
+        alert("ส่งออเดอร์เรียบร้อย!");
+        cart = [];
+        renderCart();
+        goBack();
+      })
+      .catch(err => console.error("ส่งข้อความไม่สำเร็จ:", err));
+  } else {
+    alert("กรุณาเปิดจาก LINE App เท่านั้น");
+  }
+}
+
+// เมื่อโหลดหน้า ให้ render เมนู
+window.onload = renderMenu;
