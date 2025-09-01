@@ -20,7 +20,31 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("LIFF init error", err);
   });
 });
+let cart = [];
+let customerName = ""; // จะเก็บชื่อจาก LINE Profile
 
+// ================== LIFF Init ==================
+document.addEventListener("DOMContentLoaded", function () {
+  liff.init({
+    liffId: "2008027808-5xNdW2mQ" // LIFF ID ของคุณ
+  })
+  .then(() => {
+    console.log("LIFF initialized");
+
+    if (!liff.isLoggedIn()) {
+      liff.login();
+    } else {
+      // ดึงโปรไฟล์ผู้ใช้ LINE
+      liff.getProfile().then(profile => {
+        customerName = profile.displayName; // เก็บชื่อไว้ใช้ตอนส่งออเดอร์
+        console.log("Hello,", customerName);
+      });
+    }
+  })
+  .catch(err => {
+    console.error("LIFF init error", err);
+  });
+});
 
 // ===============================
 // โค้ดเดิมของคุณ (เมนู + ตะกร้า)
