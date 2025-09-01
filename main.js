@@ -97,11 +97,14 @@ function goBack() {
 
 function sendOrder() {
   let total = cart.reduce((sum, item) => sum + item.price, 0);
-  let orderText = "📦 ออเดอร์ใหม่\n";
+  let orderText = "📋 รายการสินค้า\n\n";  // ← แก้ข้อความจาก “ออเดอร์ใหม่” เป็น “รายการสินค้า”
+
   cart.forEach(item => {
-    orderText += `- ${item.name} ${item.price} บาท\n`;
+    orderText += `- ${item.name}  ${item.price} บาท\n`;
   });
-  orderText += `💵 รวมทั้งหมด: ${total} บาท\n🚚 สถานที่จัดส่ง: ${deliveryPlace}`;
+
+  orderText += `\n💵 รวมทั้งหมด: ${total} บาท\n`;
+  orderText += `🚚 สถานที่จัดส่ง: ${deliveryPlace}`;
 
   if (liff.isInClient()) {
     liff.sendMessages([{ type: "text", text: orderText }])
