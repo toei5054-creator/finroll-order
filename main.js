@@ -6,7 +6,7 @@ const menuItems = [
   { name: "น้ำจิ้มซีฟู้ด", price: 10, description: "1 ถ้วย (แยก)", img: "images/finroll-sauce.jpg", available: false },
   { name: "น้ำส้มคั้น", price: 20, description: "น้ำส้มคั้นสด ขนาด 250 ml.", img: "images/orange.jpg", available: true },
   { name: "น้ำมะนาว", price: 30, description: "เปรี้ยวสดชื่น ขนาด 250 ml.", img: "images/lemon.jpg", available: true },
-  { name: "น้ำผึ้งมะนาว", price: 30, description: "หวาน เปรี้ยวสดชื่น ขนาด 250 ml.", img: "images/lemon.jpg", available: true }
+  { name: "น้ำผึ้งมะนาว", price: 30, description: "หวาน เปรี้ยวสดชื่น ขนาด 250 ml.", img: "images/lemon-honey.jpg", available: true }
 ];
 
 let cart = [];
