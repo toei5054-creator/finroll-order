@@ -1,9 +1,12 @@
 const menuItems = [
-  { name: "Finroll S", price: 49, description: "6 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-s.jpg" },
-  { name: "Finroll M", price: 69, description: "8 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-m.jpg" },
-  { name: "Finroll L", price: 89, description: "10 ชิ้น + น้ำจิ้ม 2 ถ้วย", img: "images/finroll-l.jpg" },
-  { name: "Finroll XL", price: 109, description: "12 ชิ้น + น้ำจิ้ม 3 ถ้วย", img: "images/finroll-xl.jpg" },
-  { name: "น้ำจิ้มซีฟู้ด", price: 10, description: "1 ถ้วย (แยก)", img: "images/finroll-sauce.jpg" }
+  { name: "Finroll S", price: 49, description: "6 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-s.jpg", available: false },
+  { name: "Finroll M", price: 69, description: "8 ชิ้น + น้ำจิ้ม 1 ถ้วย", img: "images/finroll-m.jpg", available: false },
+  { name: "Finroll L", price: 89, description: "10 ชิ้น + น้ำจิ้ม 2 ถ้วย", img: "images/finroll-l.jpg", available: false },
+  { name: "Finroll XL", price: 109, description: "12 ชิ้น + น้ำจิ้ม 3 ถ้วย", img: "images/finroll-xl.jpg", available: false },
+  { name: "น้ำจิ้มซีฟู้ด", price: 10, description: "1 ถ้วย (แยก)", img: "images/finroll-sauce.jpg", available: false },
+  { name: "น้ำส้มคั้น", price: 20, description: "น้ำส้มคั้นสด ขนาด 250 ml.", img: "images/orange.jpg", available: true },
+  { name: "น้ำมะนาว", price: 30, description: "เปรี้ยวสดชื่น ขนาด 250 ml.", img: "images/lemon.jpg", available: true },
+  { name: "น้ำผึ้งมะนาว", price: 30, description: "หวาน เปรี้ยวสดชื่น ขนาด 250 ml.", img: "images/lemon.jpg", available: true }
 ];
 
 let cart = [];
@@ -13,6 +16,8 @@ function renderMenu() {
   const menu = document.getElementById("menu");
   menu.innerHTML = "";
   menuItems.forEach((item, i) => {
+     // ✅ ถ้าเมนูงดขาย → ไม่ต้องแสดง
+    if (item.available === false) return;
     const card = document.createElement("div");
     card.className = "menu-item";
     card.innerHTML = `
